@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>Example socket.io</title>
+</head>
+
+<body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://127.0.0.1:8000/socket.io/socket.io.js"></script>
+
+<div id="username">
+<input type="text" name="messageTxt" />
+<input type="button" name="messageBtn" value="send" />
+</div>
+
+<script type="text/javascript">
+var socket = io.connect('http://127.0.0.1:8000');
+socket.on('message', function (data) {
+  $('#messages').append($('<li>').text('Received message: ' + data));
+});
+
+$('input[name=messageBtn]').click(function(){
+  var msg=$('input[name=messageTxt]').val();
+  socket.json.send(msg);
+})
+
+</script>
+Messages: <ul id="messages"></ul>
+</body>
+</html>
